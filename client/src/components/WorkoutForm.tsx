@@ -1,4 +1,4 @@
-import { FormEventHandler, useState } from "react";
+import { ChangeEventHandler, FormEventHandler, useState } from "react";
 
 // MUI components
 import {
@@ -7,12 +7,14 @@ import {
   TextField,
   Typography,
   InputAdornment,
+  Card,
 } from "@mui/material";
 
 const WorkoutForm = () => {
   const [title, setTitle] = useState<string>("");
   const [reps, setReps] = useState<string>("");
   const [load, setLoad] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
@@ -31,9 +33,14 @@ const WorkoutForm = () => {
     console.log(data);
 
     // Reset form value
-    setTitle("");
-    setReps("");
-    setLoad("");
+    if (response.ok) {
+      setTitle("");
+      setReps("");
+      setLoad("");
+      setError(null);
+    } else {
+      setError(data.error);
+    }
   };
 
   // TODO: Number input validation
@@ -68,32 +75,32 @@ const WorkoutForm = () => {
       <Grid item container spacing={3}>
         <Grid item xs={6}>
           <TextField
-            type="number"
             variant="outlined"
             fullWidth
             label="Reps"
-            value={reps}
             required
+            value={reps}
             onChange={(e) => {
-              const newValue = parseFloat(e.target.value);
-              setReps(newValue <= 0 ? "" : e.target.value);
+              const isValid =
+                /^[1-9]\d*$/.test(e.target.value) || e.target.value === "";
+              setReps(isValid ? e.target.value : reps);
             }}
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
             variant="outlined"
-            type="number"
             fullWidth
             InputProps={{
               endAdornment: <InputAdornment position="end">kg</InputAdornment>,
             }}
             label="Load"
-            value={load}
             required
+            value={load}
             onChange={(e) => {
-              const newValue = parseFloat(e.target.value);
-              setLoad(newValue <= 0 ? "" : e.target.value);
+              const isValid =
+                /^[1-9]\d*$/.test(e.target.value) || e.target.value === "";
+              setLoad(isValid ? e.target.value : load);
             }}
           />
         </Grid>
@@ -104,6 +111,8 @@ const WorkoutForm = () => {
           Create
         </Button>
       </Grid>
+
+      {error && <Card>{error}</Card>}
     </Grid>
   );
 };
