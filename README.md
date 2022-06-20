@@ -1,63 +1,47 @@
 # MERN Practice
 
-- Backend
-  - Express
-    - Routes
-    - Models
-    - Controllers
-      - CRUD
-  - MongoDB + Mongoose
-  - dotenv
-  - Typescript
-    - tsconfig
-    - tsc -w
-- Frontend
-  - React
-  - Vite
-    - Proxy in Vite
-  - Typescript
-  - MUI
-    > **Note**  
-    > Try ChakraUI, TaiwindCSS or Bootstrap next time
-- Other Tools
-  - pnpm scripts (In `package.json`)
-  - pnpm exec to execute package that installed locally
-  - concurrently
-  - nodemon
-  - Postman
+## Start
 
-## Backend
+There are three `package.json` files in this project.
 
-### Express
+- One at the project root directory. Only for `concurrently` package.
+- One at the `./server` directory. Includes `express`, `typescript` and `mongoose` packages.
+- One at the `./client` directory. Created by `vite`, just need to install the packages.
 
-- Project Structure
+```sh
+# In project root directory
 
-### MongoDB Atlas and Mongoose
+# Install project root packages
+pnpm install
 
-- MongoDB Atlas works really like Firebase (Firestore)
-- Mongoose has type system out of the box
+# Install server side packages
+cd ./server && pnpm install
 
-## Typescript
+# Install client side packages
+cd ./client && pnpm install
+```
 
-- `tsc` command would ignore tsconfig file, need to use `tsc -w` instead
-  - `tsc -w` would recompile every files in src directory every time we save new changes
-- tsconfig
-  1. Set `server/src` directory as my `rootDir` in tsconfig file
-  2. Set `server/dist` directory as my `outDir` in tsconfig file
-  3. `tsc` would automatically compile every files in src directory into javascript file and put them in dist directory with the same structure in src directory
-- `@types/*` packages give us types and interfaces for famous frameworks or libraries
-  > **Example**  
-  > `@types/express` package for **Express**  
-  > `@types/react` package for **React**
+## Run Dev Server
 
-## Frontend
+There are two dev servers to run in this project:
 
-### MUI
+- Client side server with `vite`
+- Server side server with `nodemon`
 
-- `TextField`
-- `AppBar`
-- `Grid` layout system
-  - `item` and `container` properties can coexist
-  - `component` property can determine which HTML tag `Grid` component will compile to (e.g: `form`, `div`, etc)
-    > **Note**  
-    > `Box` component has `component` tag too
+```sh
+# In project root directory
+
+# Run on separate terminals
+pnpm dev:frontend
+pnpm dev:backend
+
+# or
+
+# Run on same terminal concurrently
+pnpm dev
+```
+
+> **Note**  
+> I recommend running frontend and backend servers on different terminals. Run every things concurrently on one single terminal would make it difficult to read. The terminal would outputs too many information at the same time.
+
+### [NOTE](./NOTE.md)
