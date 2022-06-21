@@ -1,14 +1,12 @@
-import { ChangeEventHandler, FormEventHandler, useState } from "react";
+import { FormEventHandler, useState } from "react";
 
 // MUI components
-import {
-  Button,
-  Grid,
-  TextField,
-  Typography,
-  InputAdornment,
-  Card,
-} from "@mui/material";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import InputAdornment from "@mui/material/InputAdornment";
+import Card from "@mui/material/Card";
 
 const WorkoutForm = () => {
   const [title, setTitle] = useState<string>("");
@@ -28,9 +26,8 @@ const WorkoutForm = () => {
         "Content-Type": "application/json",
       },
     });
-    const data = await response.json();
 
-    console.log(data);
+    const data = await response.json();
 
     // Reset form value
     if (response.ok) {
@@ -42,8 +39,6 @@ const WorkoutForm = () => {
       setError(data.error);
     }
   };
-
-  // TODO: Number input validation
 
   return (
     <Grid
