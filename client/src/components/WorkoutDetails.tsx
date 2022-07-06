@@ -1,6 +1,8 @@
 // MUI components
 import { Card, CardContent, CardHeader, Typography } from "@mui/material";
 
+// TODO: Setup IWorkout interface as global that can be shared by both backend and frontend
+
 export interface IWorkout {
   _id: string;
   title: string;
